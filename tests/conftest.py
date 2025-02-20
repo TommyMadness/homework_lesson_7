@@ -1,3 +1,4 @@
+import shutil
 import zipfile, os
 
 import pytest
@@ -22,3 +23,8 @@ def pack_files_to_zip():
             zf.write(os.path.join(TMP_DIR, 'file_example_XLSX_1000.xlsx'), arcname='file_example_XLSX_1000.xlsx')
             zf.write(os.path.join(TMP_DIR, 'sample.pdf'), arcname='sample.pdf')
         print(f"Files were added to '{ZIP_FILE}'.")
+    yield
+
+    if os.path.isdir(RESOURCES_DIR):
+        shutil.rmtree(RESOURCES_DIR)
+        print(f"Directory '{RESOURCES_DIR}' and its contents have been removed.")
