@@ -23,6 +23,7 @@ def pack_files_to_zip():
             zf.write(os.path.join(TMP_DIR, 'file_example_XLSX_1000.xlsx'), arcname='file_example_XLSX_1000.xlsx')
             zf.write(os.path.join(TMP_DIR, 'sample.pdf'), arcname='sample.pdf')
         print(f"Files were added to '{ZIP_FILE}'.")
+
     yield
 
     if os.path.isdir(RESOURCES_DIR):
