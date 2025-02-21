@@ -3,11 +3,13 @@ import zipfile, os
 
 import pytest
 
-PROJECT_PATH = "/Users/atansan/PycharmProjects/homework_lesson_7"
+CURRENT_FILE = os.path.abspath(__file__)
+CURRENT_DIR = os.path.dirname(CURRENT_FILE)
+PROJECT_PATH = os.path.abspath(os.path.join(CURRENT_DIR, ".."))
+
 RESOURCES_DIR = os.path.join(PROJECT_PATH, "resources")
 TMP_DIR = os.path.join(PROJECT_PATH, "tmp")
-ZIP_FILE = os.path.join(RESOURCES_DIR, "test_files.zip")
-ZIP_PATH = os.path.join(PROJECT_PATH, "resources", "test_files.zip")
+ZIP_PATH = os.path.join(RESOURCES_DIR, "test_files.zip")
 
 @pytest.fixture
 def pack_files_to_zip():
@@ -15,14 +17,14 @@ def pack_files_to_zip():
         os.makedirs(RESOURCES_DIR, exist_ok=True)
         print(f"Directory '{RESOURCES_DIR}' has been created.")
 
-    if os.path.isfile(ZIP_FILE):
-        print(f"File '{ZIP_FILE}' already exists")
+    if os.path.isfile(ZIP_PATH):
+        print(f"File '{ZIP_PATH}' already exists")
     else:
-        with zipfile.ZipFile(ZIP_FILE, mode='w', compression=zipfile.ZIP_DEFLATED) as zf:
+        with zipfile.ZipFile(ZIP_PATH, mode='w', compression=zipfile.ZIP_DEFLATED) as zf:
             zf.write(os.path.join(TMP_DIR, 'currency.csv'), arcname='currency.csv')
             zf.write(os.path.join(TMP_DIR, 'file_example_XLSX_1000.xlsx'), arcname='file_example_XLSX_1000.xlsx')
             zf.write(os.path.join(TMP_DIR, 'sample.pdf'), arcname='sample.pdf')
-        print(f"Files were added to '{ZIP_FILE}'.")
+        print(f"Files were added to '{ZIP_PATH}'.")
 
     yield
 
